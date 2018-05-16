@@ -27,7 +27,7 @@ class ChatScreen extends StatefulWidget {
   createState() => new _ChatScreenState();
 }
 
-class _ChatScreenState extends State<ChatScreen> {
+class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
   final TextEditingController _textController = new TextEditingController();
   final List<ChatMessage> _message = <ChatMessage>[];
 
@@ -37,10 +37,15 @@ class _ChatScreenState extends State<ChatScreen> {
     if (text.trim().isEmpty) return;
     ChatMessage message = new ChatMessage(
       text: text,
+      animationController: new AnimationController(
+        vsync: this,
+        duration: new Duration(milliseconds: 700),
+      ),
     );
     setState(() {
       _message.insert(0, message);
     });
+    message.animationController.forward();
   }
 
   Widget _buildTextComposer() {
@@ -80,7 +85,7 @@ class _ChatScreenState extends State<ChatScreen> {
             child: new ListView.builder(
               itemBuilder: (_, int index) => _message[index],
               padding: new EdgeInsets.all(8.0),
-              reverse: false,
+              reverse: true,
               itemCount: _message.length,
             ),
           ),
@@ -96,5 +101,12 @@ class _ChatScreenState extends State<ChatScreen> {
         ],
       ),
     );
+  }
+
+  dispose() {
+    for (ChatMessage message in _message) {
+      message.animationController.dispose();
+    }
+    super.dispose();
   }
 }
