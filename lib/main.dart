@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loser/chat_message.dart';
 
 void main() => runApp(new MyApp());
 
@@ -28,10 +29,18 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _textController = new TextEditingController();
+  final List<ChatMessage> _message = <ChatMessage>[];
 
   _handleSubmitted(String text) {
-    print('消息为 $text');
+//    print('消息为 $text');
     _textController.clear();
+    if (text.trim().isEmpty) return;
+    ChatMessage message = new ChatMessage(
+      text: text,
+    );
+    setState(() {
+      _message.insert(0, message);
+    });
   }
 
   Widget _buildTextComposer() {
@@ -65,7 +74,27 @@ class _ChatScreenState extends State<ChatScreen> {
       appBar: new AppBar(
         title: new Text("死肥仔的日常"),
       ),
-      body: _buildTextComposer(),
+      body: new Column(
+        children: <Widget>[
+          new Flexible(
+            child: new ListView.builder(
+              itemBuilder: (_, int index) => _message[index],
+              padding: new EdgeInsets.all(8.0),
+              reverse: false,
+              itemCount: _message.length,
+            ),
+          ),
+          new Divider(
+            height: 1.0,
+          ),
+          new Container(
+            decoration: new BoxDecoration(
+              color: Theme.of(context).cardColor,
+            ),
+            child: _buildTextComposer(),
+          )
+        ],
+      ),
     );
   }
 }
