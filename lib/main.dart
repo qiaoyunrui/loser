@@ -110,7 +110,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
   build(context) {
     return new Scaffold(
         appBar: new AppBar(
-          title: new Text("死肥仔的日常"),
+          title: new Text("肥宅快乐生活"),
           elevation:
               Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 4.0,
           // 设置阴影，ios 没有阴影，Android 上有阴影
