@@ -2,36 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:loser/chat_message.dart';
+import 'package:loser/framework/global.dart';
 
-void main() => runApp(new MyApp());
+void main() => runApp(new MainApp());
 
-class MyApp extends StatelessWidget {
+class MainApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return new HomeApp();
-  }
-}
-
-final ThemeData kDefaultTheme = new ThemeData(
-  primarySwatch: Colors.blue,
-  accentColor: Colors.orangeAccent[400],
-);
-
-final ThemeData kIOSTheme = new ThemeData(
-  primarySwatch: Colors.orange,
-  primaryColor: Colors.green,
-);
-
-class HomeApp extends StatelessWidget {
-  build(context) {
-    return new MaterialApp(
-      title: "loser",
-      theme: defaultTargetPlatform == TargetPlatform.iOS
-          ? kIOSTheme
-          : kDefaultTheme,
-      home: new ChatScreen(),
-    );
+    return new WrapperApp(new ChatScreen());
   }
 }
 
