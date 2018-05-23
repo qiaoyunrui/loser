@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
 }
 
 final ThemeData kDefaultTheme = new ThemeData(
-  primarySwatch: Colors.purple,
+  primarySwatch: Colors.blue,
   accentColor: Colors.orangeAccent[400],
 );
 
